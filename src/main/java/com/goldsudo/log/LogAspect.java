@@ -1,5 +1,7 @@
 package com.goldsudo.log;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
 import com.goldsudo.dao.LogLevelDao;
 import com.goldsudo.domain.LogLevel;
 import org.aspectj.lang.JoinPoint;
@@ -13,10 +15,29 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Aspect
 @Component
 public class LogAspect {
+    private volatile String currentLevel = "INFO";
+    private volatile long lastCheckTime = 0L;
+    private volatile long TWEENTY_SECONDS = 20000L;
+    private static Set<String> LOG_LEVEL_SET;
+
+    static {
+        LOG_LEVEL_SET = new HashSet<>();
+        LOG_LEVEL_SET.add("OFF");
+        LOG_LEVEL_SET.add("TRACE");
+        LOG_LEVEL_SET.add("DEBUG");
+        LOG_LEVEL_SET.add("INFO");
+        LOG_LEVEL_SET.add("WARN");
+        LOG_LEVEL_SET.add("ERROR");
+        LOG_LEVEL_SET.add("ALL");
+    }
+
     @Autowired
     private LogLevelDao logLevelDao;
 
@@ -29,13 +50,33 @@ public class LogAspect {
 
     @Before("webLog()")
     public void deBefore(JoinPoint jp) throws Throwable {
-        LogLevel level = logLevelDao.selectByPrimaryKey(1);
-        if (level == null) {
-            level = new LogLevel(1, "INFO");
+        if (timeExpired()) {
+            LogLevel logLevel = logLevelDao.selectByPrimaryKey(1);
+            if (logLevel == null) {
+                logLevel = new LogLevel(1, "INFO");
+            }
+            logger.info("远程日志级别为：" + logLevel.getLevel() + " 当前日志级别为：" + currentLevel);
+            if (validLevel(logLevel.getLevel()) && !currentLevel.equals(logLevel.getLevel())) {
+                updateLogLevel(logLevel);
+                logger.info("调整日志级别为：" + logLevel.getLevel());
+                currentLevel = logLevel.getLevel();
+            }
         }
-        logger.info("当前远程日志级别为：" + level.getLevel());
         logger.info("方法执行开始,joinPoint:" + jp);
         startTime.set(System.currentTimeMillis());
+    }
+
+    @Before("webLog()")
+    public void before(JoinPoint jp) {
+        // 接收到请求，记录请求内容
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        // 记录下请求内容
+        logger.info("URL : " + request.getRequestURL().toString());
+        logger.info("HTTP_METHOD : " + request.getMethod());
+        logger.info("IP : " + request.getRemoteAddr());
+        logger.info("CLASS_METHOD : " + jp.getSignature().getDeclaringTypeName() + "." + jp.getSignature().getName());
+        logger.info("ARGS : " + Arrays.toString(jp.getArgs()));
     }
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")
@@ -56,17 +97,28 @@ public class LogAspect {
         logger.info("方法执行结束,joinPoint:" + jp + "，执行耗时：" + (System.currentTimeMillis() - startTime.get()) + " ms.");
     }
 
-    @Before("webLog()")
-    public void before(JoinPoint jp) {
-        // 接收到请求，记录请求内容
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        // 记录下请求内容
-        logger.info("URL : " + request.getRequestURL().toString());
-        logger.info("HTTP_METHOD : " + request.getMethod());
-        logger.info("IP : " + request.getRemoteAddr());
-        logger.info("CLASS_METHOD : " + jp.getSignature().getDeclaringTypeName() + "." + jp.getSignature().getName());
-        logger.info("ARGS : " + Arrays.toString(jp.getArgs()));
+    private void updateLogLevel(LogLevel logLevel) {
+        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        //获取应用中的所有logger实例
+        List<ch.qos.logback.classic.Logger> loggerList = loggerContext.getLoggerList();
+        //遍历更改每个logger实例的级别,可以通过http请求传递参数进行动态配置
+        for (ch.qos.logback.classic.Logger logger : loggerList) {
+            logger.setLevel(Level.toLevel(logLevel.getLevel()));
+        }
+    }
+
+    private boolean timeExpired() {
+        long currentTime = System.currentTimeMillis();
+        long timeDiff = currentTime - lastCheckTime;
+        if (timeDiff > TWEENTY_SECONDS) {
+            lastCheckTime = currentTime;
+            return true;
+        }
+        return false;
+    }
+
+    private boolean validLevel(String level) {
+        return LOG_LEVEL_SET.contains(level);
     }
 
 }

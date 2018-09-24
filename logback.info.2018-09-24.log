@@ -1,0 +1,45 @@
+18:25:01.196 default [main] INFO  com.goldsudo.LogApplication - Starting LogApplication on GoldsudoSurface with PID 13932 (D:\workspace\study-project\study-slf4j\target\classes started by goldsudo in D:\workspace\study-project\study-slf4j)
+18:25:01.211 default [main] INFO  com.goldsudo.LogApplication - No active profile set, falling back to default profiles: default
+18:25:01.354 default [main] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@3697186: startup date [Mon Sep 24 18:25:01 CST 2018]; root of context hierarchy
+18:25:03.715 default [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+18:25:03.784 default [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+18:25:03.798 default [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+18:25:03.799 default [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.34
+18:25:03.805 default [localhost-startStop-1] INFO  o.a.c.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [D:\tools\java\jdk1.8\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\tools\Microsoft VS Code\bin;D:\tools\Git\cmd;D:\tools\TortoiseGit\bin;D:\tools\node\;D:\tools\node\node_global;D:\tools\java\jdk1.8\bin;D:\tools\java\jdk1.8\jre\bin;D:\tools\maven\apache-maven-3.5.4\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;D:\tools\TortoiseSVN\bin;C:\Users\goldsudo\AppData\Local\Microsoft\WindowsApps;C:\Users\goldsudo\AppData\Roaming\npm;C:\Users\goldsudo\AppData\Local\GitHubDesktop\bin;.]
+18:25:03.950 default [localhost-startStop-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+18:25:03.950 default [localhost-startStop-1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2596 ms
+18:25:04.068 default [localhost-startStop-1] INFO  o.s.b.w.s.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+18:25:04.074 default [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+18:25:04.074 default [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+18:25:04.075 default [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+18:25:04.075 default [localhost-startStop-1] INFO  o.s.b.w.s.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+18:25:04.911 default [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+18:25:05.403 default [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@3697186: startup date [Mon Sep 24 18:25:01 CST 2018]; root of context hierarchy
+18:25:05.521 default [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/logTest/doLog],methods=[GET]}" onto public void com.goldsudo.web.LogTestController.doLog()
+18:25:05.526 default [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+18:25:05.527 default [main] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+18:25:05.628 default [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+18:25:05.628 default [main] INFO  o.s.w.s.h.SimpleUrlHandlerMapping - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+18:25:06.583 default [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+18:25:06.586 default [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+18:25:06.599 default [main] INFO  o.s.j.e.a.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+18:25:06.624 default [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+18:25:06.651 default [main] INFO  o.a.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+18:25:06.709 default [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+18:25:06.731 default [main] INFO  com.goldsudo.LogApplication - Started LogApplication in 6.482 seconds (JVM running for 7.962)
+18:25:51.209 default [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+18:25:51.209 default [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+18:25:51.267 default [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 58 ms
+18:25:51.331 default [http-nio-8080-exec-1] INFO  com.goldsudo.log.LogAspect - URL : http://localhost:8080/logTest/doLog
+18:25:51.332 default [http-nio-8080-exec-1] INFO  com.goldsudo.log.LogAspect - HTTP_METHOD : GET
+18:25:51.332 default [http-nio-8080-exec-1] INFO  com.goldsudo.log.LogAspect - IP : 0:0:0:0:0:0:0:1
+18:25:51.335 default [http-nio-8080-exec-1] INFO  com.goldsudo.log.LogAspect - CLASS_METHOD : com.goldsudo.web.LogTestController.doLog
+18:25:51.336 default [http-nio-8080-exec-1] INFO  com.goldsudo.log.LogAspect - ARGS : []
+18:25:51.379 default [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+18:25:51.851 default [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+18:25:51.906 default [http-nio-8080-exec-1] INFO  com.goldsudo.log.LogAspect - 当前远程日志级别为：INFO
+18:25:51.906 default [http-nio-8080-exec-1] INFO  com.goldsudo.log.LogAspect - 方法执行开始,joinPoint:execution(void com.goldsudo.web.LogTestController.doLog())
+18:25:51.912 default [http-nio-8080-exec-1] INFO  com.goldsudo.web.LogTestController - 这是一条info级别的日志
+18:25:51.913 default [http-nio-8080-exec-1] WARN  com.goldsudo.web.LogTestController - 这是一条warn级别的日志
+18:25:51.913 default [http-nio-8080-exec-1] INFO  com.goldsudo.log.LogAspect - 方法执行结束,joinPoint:execution(void com.goldsudo.web.LogTestController.doLog())，执行耗时：6 ms.
+18:25:51.913 default [http-nio-8080-exec-1] INFO  com.goldsudo.log.LogAspect - 方法的返回值 : null
